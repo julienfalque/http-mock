@@ -1,0 +1,30 @@
+<?php
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'combine_consecutive_unsets' => true,
+        'declare_strict_types' => true,
+        'no_unreachable_default_argument_value' => true,
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_imports' => true,
+        'phpdoc_add_missing_param_annotation' => ['only_untyped' => false],
+        'phpdoc_order' => true,
+        'php_unit_strict' => true,
+        'psr4' => true,
+        'strict_comparison' => true,
+        'strict_param' => true,
+    ])
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in([
+                __DIR__.'/src',
+                __DIR__.'/tests',
+            ])
+            ->append([__FILE__])
+    )
+    ->setUsingCache(true)
+;
