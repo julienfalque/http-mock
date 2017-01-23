@@ -1,5 +1,6 @@
 # HttpMock
 
+[![Build status](https://travis-ci.org/julienfalque/http-mock.svg?branch=master)](https://travis-ci.org/julienfalque/http-mock)
 [![Latest Stable Version](https://poser.pugx.org/jfalque/http-mock/v/stable)](https://packagist.org/packages/jfalque/http-mock)
 [![License](https://poser.pugx.org/jfalque/http-mock/license)](https://packagist.org/packages/jfalque/http-mock)
 
