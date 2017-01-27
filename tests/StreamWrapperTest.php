@@ -437,6 +437,22 @@ PHP
                         return new Response(200, [], $request->getProtocolVersion());
                     })
                 ->end()
+                ->whenPath($regexp = '~^/http-status/(\d{3})$~', true)
+                    ->return(function (RequestInterface $request) use ($regexp) {
+                        $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
+
+                        return new Response($status);
+                    })
+                ->end()
+                ->whenPath($regexp = '~^/redirect-to-http-status/(\d{3})$~', true)
+                    ->return(function (RequestInterface $request) use ($regexp) {
+                        $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
+
+                        return new Response(301, [
+                            'Location' => '/http-status/'.$status,
+                        ]);
+                    })
+                ->end()
             ->end()
         ;
     }
@@ -513,6 +529,22 @@ PHP
         ]]];
 
         yield [false, 'http://bar'];
+
+        yield [false, 'http://foo/http-status/400'];
+
+        yield [false, 'http://foo/http-status/404'];
+
+        yield [false, 'http://foo/http-status/500'];
+
+        yield [false, 'http://foo/http-status/503'];
+
+        yield [false, 'http://foo/redirect-to-http-status/400'];
+
+        yield [false, 'http://foo/redirect-to-http-status/404'];
+
+        yield [false, 'http://foo/redirect-to-http-status/500'];
+
+        yield [false, 'http://foo/redirect-to-http-status/503'];
     }
 
     /**

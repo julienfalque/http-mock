@@ -163,6 +163,16 @@ final class StreamWrapper
             ), $options);
         }
 
+        if ($this->response->getStatusCode() >= 400) {
+            return $this->triggerError(sprintf(
+                'Request %s %s failed: %d %d.',
+                $request->getMethod(),
+                $request->getUri(),
+                $this->response->getStatusCode(),
+                $this->response->getReasonPhrase()
+            ), $options);
+        }
+
         if ($followRedirects) {
             $redirections = 0;
             $currentRequest = $request;
@@ -200,6 +210,16 @@ final class StreamWrapper
                         $request->getMethod(),
                         $request->getUri(),
                         $redirectUri
+                    ), $options);
+                }
+
+                if ($this->response->getStatusCode() >= 400) {
+                    return $this->triggerError(sprintf(
+                        'Request %s %s failed: %d %d.',
+                        $request->getMethod(),
+                        $request->getUri(),
+                        $this->response->getStatusCode(),
+                        $this->response->getReasonPhrase()
                     ), $options);
                 }
             }
