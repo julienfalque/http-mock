@@ -9,13 +9,14 @@ use GuzzleHttp\Psr7\Response;
 use Jfalque\HttpMock\Exception\BadMethodCallException;
 use Jfalque\HttpMock\Exception\InvalidArgumentException;
 use Jfalque\HttpMock\Server;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * {@see Server} tests.
  */
-class ServerTest extends \PHPUnit_Framework_TestCase
+class ServerTest extends TestCase
 {
     /**
      * {@see Server::handle} test.

@@ -6,12 +6,13 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Predicate\ProtocolVersion;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see ProtocolVersion} tests.
  */
-class ProtocolVersionTest extends \PHPUnit_Framework_TestCase
+class ProtocolVersionTest extends TestCase
 {
     /**
      * {@see ProtocolVersion::__invoke} test.

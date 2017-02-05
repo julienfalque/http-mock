@@ -8,12 +8,14 @@ use GuzzleHttp\Psr7\Response;
 use Jfalque\HttpMock\Server;
 use Jfalque\HttpMock\StreamWrapper;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamWrapper;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see StreamWrapper} tests.
  */
-class StreamWrapperTest extends \PHPUnit_Framework_TestCase
+class StreamWrapperTest extends TestCase
 {
     /**
      * @var Server

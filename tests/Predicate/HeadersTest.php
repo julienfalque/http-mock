@@ -6,12 +6,13 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Predicate\Headers;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see Headers} tests.
  */
-class HeadersTest extends \PHPUnit_Framework_TestCase
+class HeadersTest extends TestCase
 {
     /**
      * {@see Headers::__invoke} test.

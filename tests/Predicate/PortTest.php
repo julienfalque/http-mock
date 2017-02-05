@@ -6,12 +6,13 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Predicate\Port;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see Port} tests.
  */
-class PortTest extends \PHPUnit_Framework_TestCase
+class PortTest extends TestCase
 {
     /**
      * {@see Port::__invoke} test.

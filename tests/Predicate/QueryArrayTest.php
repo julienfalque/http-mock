@@ -6,12 +6,13 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Predicate\QueryArray;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see QueryArray} tests.
  */
-class QueryArrayTest extends \PHPUnit_Framework_TestCase
+class QueryArrayTest extends TestCase
 {
     /**
      * {@see QueryArray::__invoke} test.

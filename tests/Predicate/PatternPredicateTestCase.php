@@ -7,11 +7,12 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Exception\InvalidArgumentException;
 use Jfalque\HttpMock\Predicate\PatternPredicate;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Base class for {@see PatternPredicate} tests.
  */
-class PatternPredicateTestCase extends \PHPUnit_Framework_TestCase
+class PatternPredicateTestCase extends TestCase
 {
     /**
      * @param PatternPredicate $predicate

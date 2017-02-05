@@ -6,12 +6,13 @@ namespace Jfalque\HttpMock\Tests\Predicate;
 
 use GuzzleHttp\Psr7\Request;
 use Jfalque\HttpMock\Predicate\Method;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * {@see Method} tests.
  */
-class MethodTest extends \PHPUnit_Framework_TestCase
+class MethodTest extends TestCase
 {
     /**
      * {@see Method::__invoke} test.
