@@ -15,7 +15,7 @@ Table of contents
 
 #. Server mock
 
-   a. `principle <server/principle.rst>`_
+   a. `Principle <server/principle.rst>`_
    b. `API <server/api.rst>`_
    c. `Examples <server/examples.rst>`_
 
