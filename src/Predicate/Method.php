@@ -17,8 +17,6 @@ class Method implements Predicate
     private $methods;
 
     /**
-     * Constructor.
-     *
      * @param string|string[] $methods
      */
     public function __construct($methods)
@@ -26,9 +24,6 @@ class Method implements Predicate
         $this->methods = (array) $methods;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         return \in_array($request->getMethod(), $this->methods, true);

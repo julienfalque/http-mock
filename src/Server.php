@@ -221,9 +221,6 @@ final class Server implements ServerInterface
         return $this->parent;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function handle(RequestInterface $request)
     {
         foreach ($this->predicates as $predicate) {

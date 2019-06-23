@@ -14,9 +14,6 @@ use Psr\Http\Message\RequestInterface;
  */
 class Body extends PatternPredicate
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getValue(RequestInterface $request): string
     {
         return (string) $request->getBody();

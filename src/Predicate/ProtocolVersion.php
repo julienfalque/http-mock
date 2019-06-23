@@ -17,8 +17,6 @@ class ProtocolVersion implements Predicate
     private $version;
 
     /**
-     * Constructor.
-     *
      * @param string|float|int $version
      */
     public function __construct($version)
@@ -26,9 +24,6 @@ class ProtocolVersion implements Predicate
         $this->version = (float) $version;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         return (float) $request->getProtocolVersion() === $this->version;

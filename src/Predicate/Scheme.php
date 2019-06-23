@@ -16,17 +16,11 @@ class Scheme implements Predicate
      */
     private $scheme;
 
-    /**
-     * Constructor.
-     */
     public function __construct(string $scheme)
     {
         $this->scheme = strtolower($scheme);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         return $request->getUri()->getScheme() === $this->scheme;

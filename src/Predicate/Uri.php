@@ -16,9 +16,6 @@ class Uri extends PatternPredicate
 {
     use NormalizeRequestTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct($pattern, $isRegularExpression = false)
     {
         if (!$isRegularExpression) {
@@ -28,9 +25,6 @@ class Uri extends PatternPredicate
         parent::__construct($pattern, $isRegularExpression);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getValue(RequestInterface $request): string
     {
         $uri = $this->normalizeRequest($request)->getUri();

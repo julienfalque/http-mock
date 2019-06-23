@@ -14,9 +14,6 @@ use Psr\Http\Message\RequestInterface;
  */
 class Fragment extends PatternPredicate
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getValue(RequestInterface $request): string
     {
         return $request->getUri()->getFragment();

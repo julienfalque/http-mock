@@ -26,9 +26,6 @@ class StreamWrapperTest extends TestCase
      */
     private $iniUserAgent;
 
-    /**
-     * {@inheritdoc}
-     */
     public static function setUpBeforeClass()
     {
         eval(<<<'PHP'
@@ -51,9 +48,6 @@ PHP
         self::$server = self::createServer();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp()
     {
         if (!\in_array($this->getName(), ['testRegister', 'testUsageWithoutServer'], true)) {
@@ -61,9 +55,6 @@ PHP
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function tearDown()
     {
         if ('testUnregister' !== $this->getName()) {
@@ -76,9 +67,6 @@ PHP
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function stearDownAfterClass()
     {
         self::$server = null;

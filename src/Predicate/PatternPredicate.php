@@ -22,9 +22,6 @@ abstract class PatternPredicate implements Predicate
      */
     private $isRegularExpression;
 
-    /**
-     * Constructor.
-     */
     public function __construct(string $pattern, bool $isRegularExpression = false)
     {
         $this->pattern = $pattern;
@@ -32,8 +29,6 @@ abstract class PatternPredicate implements Predicate
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \InvalidArgumentException when using an invalid
      *                                   {@link http://php.net/manual/en/pcre.pattern.php PCRE pattern}
      */

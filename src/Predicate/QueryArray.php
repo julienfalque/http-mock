@@ -28,18 +28,12 @@ class QueryArray implements Predicate
      */
     private $isSubset;
 
-    /**
-     * Constructor.
-     */
     public function __construct(array $parameters, bool $isSubset = true)
     {
         $this->parameters = $parameters;
         $this->isSubset = $isSubset;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         parse_str($this->normalizeRequest($request)->getUri()->getQuery(), $query);

@@ -32,9 +32,6 @@ class Headers implements Predicate
         $this->headers = $headers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         foreach ($this->headers as $name => $expectedValues) {

@@ -17,8 +17,6 @@ class Port implements Predicate
     private $ports;
 
     /**
-     * Constructor.
-     *
      * @param int|int[] $ports
      */
     public function __construct($ports)
@@ -26,9 +24,6 @@ class Port implements Predicate
         $this->ports = (array) $ports;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(RequestInterface $request): bool
     {
         if (null === $port = $request->getUri()->getPort()) {
