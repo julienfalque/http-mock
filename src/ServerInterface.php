@@ -15,8 +15,6 @@ interface ServerInterface
     /**
      * Handles a {@see RequestInterface} instance and returns the matching response, if any.
      *
-     * @param RequestInterface $request
-     *
      * @return ResponseInterface|null
      */
     public function handle(RequestInterface $request);

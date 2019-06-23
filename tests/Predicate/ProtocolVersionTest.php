@@ -18,8 +18,6 @@ class ProtocolVersionTest extends TestCase
      * {@see ProtocolVersion::__invoke} test.
      *
      * @param string|float|int $version
-     * @param RequestInterface $request
-     * @param bool             $expected
      *
      * @dataProvider getMatchingCases
      */
@@ -30,9 +28,6 @@ class ProtocolVersionTest extends TestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield ['1.0', $request = new Request('GET', 'http://foo', [], null, '1.0')];

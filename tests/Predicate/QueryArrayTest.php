@@ -17,11 +17,6 @@ class QueryArrayTest extends TestCase
     /**
      * {@see QueryArray::__invoke} test.
      *
-     * @param array            $parameters
-     * @param bool             $isSubset
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getMatchingCases
      */
     public function testInvoke(array $parameters, bool $isSubset, RequestInterface $request, bool $expected = true)
@@ -31,9 +26,6 @@ class QueryArrayTest extends TestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield [['foo' => 'bar'], true, new Request('GET', 'http://foo?foo=bar')];

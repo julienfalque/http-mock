@@ -26,8 +26,6 @@ class Headers implements Predicate
      *  * ['X-Foo' => 'foo']
      *  * ['X-Foo' => ['foo']]
      *  * ['X-Foo' => ['foo', 'bar']]
-     *
-     * @param array $headers
      */
     public function __construct(array $headers)
     {

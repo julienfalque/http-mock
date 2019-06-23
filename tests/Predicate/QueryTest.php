@@ -16,11 +16,6 @@ class QueryTest extends PatternPredicateTestCase
     /**
      * {@see Query::__invoke} test.
      *
-     * @param string           $pattern
-     * @param bool             $isRegularExpression
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getMatchingCases
      */
     public function testInvoke(
@@ -34,17 +29,14 @@ class QueryTest extends PatternPredicateTestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield ['foo=bar', false, $request = new Request('GET', 'http://foo?foo=bar')];
         yield ['/foo=/', true, $request];
         yield ['foo=foo+bar', false, new Request('GET', 'http://foo?foo=foo+bar')];
         yield ['foo=foo+bar', false, new Request('GET', 'http://foo?foo=foo%20bar')];
-        yield ['/foo\+bar/', true, new Request('GET', 'http://foo?foo=foo+bar')];
-        yield ['/foo\+bar/', true, new Request('GET', 'http://foo?foo=foo%20bar')];
+        yield ['/foo\\+bar/', true, new Request('GET', 'http://foo?foo=foo+bar')];
+        yield ['/foo\\+bar/', true, new Request('GET', 'http://foo?foo=foo%20bar')];
         yield ['@foo=@bar', false, new Request('GET', 'http://foo?@foo=@bar')];
         yield ['@foo=@bar', false, new Request('GET', 'http://foo?%40foo=%40bar')];
         yield ['/@fo/', true, new Request('GET', 'http://foo?@foo=@bar')];

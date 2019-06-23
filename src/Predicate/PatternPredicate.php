@@ -24,9 +24,6 @@ abstract class PatternPredicate implements Predicate
 
     /**
      * Constructor.
-     *
-     * @param string $pattern
-     * @param bool   $isRegularExpression
      */
     public function __construct(string $pattern, bool $isRegularExpression = false)
     {
@@ -61,10 +58,6 @@ abstract class PatternPredicate implements Predicate
 
     /**
      * Returns the value to match against the predicate.
-     *
-     * @param RequestInterface $request
-     *
-     * @return string
      */
     abstract protected function getValue(RequestInterface $request): string;
 }

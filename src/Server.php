@@ -75,8 +75,6 @@ final class Server implements ServerInterface
      * The predicate must be a callable that accepts a {@see RequestInterface} instance as first parameter and returns a
      * boolean that represents whether the request matches the predicate's criteria.
      *
-     * @param callable $predicate
-     *
      * @return self The new matching layer
      */
     public function when(callable $predicate): self
@@ -96,8 +94,6 @@ final class Server implements ServerInterface
      * The predicate must be a callable that accepts a {@see RequestInterface} instance as first parameter and returns a
      * boolean that represents whether the request matches the predicate's criteria.
      *
-     * @param callable $predicate
-     *
      * @return $this The current matching layer
      */
     public function andWhen(callable $predicate): self
@@ -110,12 +106,7 @@ final class Server implements ServerInterface
     /**
      * Handles specific `when*` and `andWhen*` calls.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
      * @throws BadMethodCallException
-     *
-     * @return self
      */
     public function __call(string $method, array $arguments): self
     {
@@ -124,7 +115,7 @@ final class Server implements ServerInterface
         }
 
         $getValue = function () use ($arguments, $method) {
-            if (!array_key_exists(0, $arguments)) {
+            if (!\array_key_exists(0, $arguments)) {
                 throw BadMethodCallException::missingArgument($this, $method, 1);
             }
 
@@ -136,40 +127,51 @@ final class Server implements ServerInterface
         switch ($matches[2]) {
             case 'ProtocolVersion':
                 $predicate = new ProtocolVersion($getValue());
+
                 break;
             case 'Scheme':
                 $predicate = new Scheme($getValue());
+
                 break;
             case 'Uri':
                 $predicate = new Uri($getValue(), $regexp);
+
                 break;
             case 'Method':
                 $predicate = new Method($getValue());
+
                 break;
             case 'Host':
                 $predicate = new Host($getValue(), $regexp);
+
                 break;
             case 'Port':
                 $predicate = new Port($getValue());
+
                 break;
             case 'Path':
                 $predicate = new Path($getValue(), $regexp);
+
                 break;
             case 'Query':
-                if (is_array($value = $getValue())) {
+                if (\is_array($value = $getValue())) {
                     $predicate = new QueryArray($value, $regexp);
                 } else {
                     $predicate = new Query($value, $regexp);
                 }
+
                 break;
             case 'Fragment':
                 $predicate = new Fragment($getValue(), $regexp);
+
                 break;
             case 'Headers':
                 $predicate = new Headers($getValue());
+
                 break;
             case 'Body':
                 $predicate = new Body($getValue(), $regexp);
+
                 break;
             default:
                 throw BadMethodCallException::undefinedMethod($this, $method);
@@ -177,7 +179,7 @@ final class Server implements ServerInterface
 
         $genericMethod = $matches[1];
 
-        return $this->$genericMethod($predicate);
+        return $this->{$genericMethod}($predicate);
     }
 
     /**
@@ -194,7 +196,7 @@ final class Server implements ServerInterface
      */
     public function return($result)
     {
-        if (!$result instanceof ResponseInterface && !is_callable($result)) {
+        if (!$result instanceof ResponseInterface && !\is_callable($result)) {
             throw InvalidArgumentException::withExpectedType(
                 $this,
                 'return',
@@ -236,7 +238,7 @@ final class Server implements ServerInterface
             }
         }
 
-        if (is_callable($result = $this->result)) {
+        if (\is_callable($result = $this->result)) {
             return $result($request);
         }
 

@@ -40,8 +40,6 @@ final class StreamWrapper
      *
      * The wrapper can be unregistered using {@see unregister()} method. Note that this will restore the PHP built-in
      * wrapper; if you want to use another custom wrapper, you will have to register it again.
-     *
-     * @param ServerInterface $server
      */
     public static function register(ServerInterface $server)
     {
@@ -50,7 +48,7 @@ final class StreamWrapper
         $wrappers = stream_get_wrappers();
 
         foreach (['http', 'https'] as $protocol) {
-            if (in_array($protocol, $wrappers, true)) {
+            if (\in_array($protocol, $wrappers, true)) {
                 stream_wrapper_unregister($protocol);
             }
 
@@ -72,12 +70,7 @@ final class StreamWrapper
     /**
      * @see http://php.net/manual/en/streamwrapper.stream-open.php
      *
-     * @param string $uri
-     * @param string $mode
-     * @param int    $options
      * @param string $openedPath
-     *
-     * @return bool
      */
     public function stream_open(string $uri, string $mode, int $options, &$openedPath): bool
     {
@@ -90,7 +83,7 @@ final class StreamWrapper
             return false;
         }
 
-        if (in_array($mode, ['w', 'w+', 'a', 'a+', 'x', 'x+', 'c', 'c+'], true)) {
+        if (\in_array($mode, ['w', 'w+', 'a', 'a+', 'x', 'x+', 'c', 'c+'], true)) {
             trigger_error('HTTP wrapper does not support writeable connections', E_USER_WARNING);
 
             return false;
@@ -115,11 +108,11 @@ final class StreamWrapper
 
             if (isset($contextOptions['header'])) {
                 foreach ((array) $contextOptions['header'] as $header) {
-                    if (!is_string($header) || !strpos($header, ':')) {
+                    if (!\is_string($header) || !strpos($header, ':')) {
                         continue;
                     }
 
-                    list($name, $value) = preg_split('/:\s*/', $header, 2);
+                    list($name, $value) = preg_split('/:\\s*/', $header, 2);
                     if (!isset($headers[$name])) {
                         $headers[$name] = $value;
                     }
@@ -149,7 +142,7 @@ final class StreamWrapper
 
         $protocolVersion = sprintf('%01.1f', $protocolVersion);
 
-        if ('' !== $userAgent && !in_array('user-agent', array_map('strtolower', array_keys($headers)), true)) {
+        if ('' !== $userAgent && !\in_array('user-agent', array_map('strtolower', array_keys($headers)), true)) {
             $headers['User-Agent'] = $userAgent;
         }
 
@@ -245,10 +238,6 @@ final class StreamWrapper
 
     /**
      * @see http://php.net/manual/en/streamwrapper.stream-read.php
-     *
-     * @param int $length
-     *
-     * @return string
      */
     public function stream_read(int $length): string
     {
@@ -257,11 +246,6 @@ final class StreamWrapper
 
     /**
      * @see http://php.net/manual/en/streamwrapper.stream-seek.php
-     *
-     * @param int $offset
-     * @param int $whence
-     *
-     * @return bool
      */
     public function stream_seek(int $offset, int $whence = SEEK_SET): bool
     {
@@ -281,8 +265,6 @@ final class StreamWrapper
 
     /**
      * @see http://php.net/manual/en/streamwrapper.stream-tell.php
-     *
-     * @return int
      */
     public function stream_tell(): int
     {
@@ -291,8 +273,6 @@ final class StreamWrapper
 
     /**
      * @see http://php.net/manual/en/streamwrapper.stream-eof.php
-     *
-     * @return bool
      */
     public function stream_eof(): bool
     {
@@ -309,12 +289,6 @@ final class StreamWrapper
         return false;
     }
 
-    /**
-     * @param string $message
-     * @param int    $options
-     *
-     * @return bool
-     */
     private function triggerError(string $message, int $options): bool
     {
         if ($options & STREAM_REPORT_ERRORS) {

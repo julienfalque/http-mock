@@ -8,7 +8,6 @@ use GuzzleHttp\Psr7\Response;
 use Jfalque\HttpMock\Server;
 use Jfalque\HttpMock\StreamWrapper;
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamWrapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -32,18 +31,18 @@ class StreamWrapperTest extends TestCase
      */
     public static function setUpBeforeClass()
     {
-        eval(<<<PHP
+        eval(<<<'PHP'
 namespace Jfalque\HttpMock;
 
-function stream_wrapper_restore(\$protocol)
+function stream_wrapper_restore($protocol)
 {
-    if (in_array(\$protocol, ['http', 'https'])) {
-        stream_wrapper_register(\$protocol, 'stdClass', STREAM_IS_URL);
+    if (in_array($protocol, ['http', 'https'])) {
+        stream_wrapper_register($protocol, 'stdClass', STREAM_IS_URL);
         
         return true;
     }
 
-    return \stream_wrapper_restore(\$protocol);
+    return \stream_wrapper_restore($protocol);
 }
 
 PHP
@@ -57,7 +56,7 @@ PHP
      */
     protected function setUp()
     {
-        if (!in_array($this->getName(), ['testRegister', 'testUsageWithoutServer'], true)) {
+        if (!\in_array($this->getName(), ['testRegister', 'testUsageWithoutServer'], true)) {
             StreamWrapper::register(self::$server);
         }
     }
@@ -149,8 +148,6 @@ PHP
      * {@see StreamWrapper} test with {@see file_get_contents()}.
      *
      * @param string|false $expectedResult
-     * @param string       $uri
-     * @param array|null   $options
      * @param string       $defaultUserAgent
      *
      * @dataProvider getRequestCases
@@ -168,7 +165,7 @@ PHP
         if (false !== $expectedResult) {
             self::assertSame($expectedResult, file_get_contents($uri, false, $context));
 
-            if (strlen($expectedResult) >= 8) {
+            if (\strlen($expectedResult) >= 8) {
                 self::assertSame(
                     substr($expectedResult, 7),
                     file_get_contents($uri, false, $context, 7)
@@ -187,8 +184,6 @@ PHP
      * {@see StreamWrapper} test with {@see fopen()} and related functions.
      *
      * @param string|false $expectedResult
-     * @param string       $uri
-     * @param array|null   $options
      * @param string       $defaultUserAgent
      *
      * @dataProvider getRequestCases
@@ -208,20 +203,20 @@ PHP
         $this->setDefaultUserAgent($defaultUserAgent);
 
         if (false !== $expectedResult) {
-            $resource = call_user_func_array('fopen', $arguments);
-            self::assertTrue(is_resource($resource));
+            $resource = \call_user_func_array('fopen', $arguments);
+            self::assertTrue(\is_resource($resource));
 
-            $lines = preg_split('/(?<=\n)/', $expectedResult);
+            $lines = preg_split('/(?<=\\n)/', $expectedResult);
 
             self::assertFalse(fstat($resource));
             self::assertSame(0, ftell($resource));
             self::assertFalse(feof($resource));
             self::assertSame(substr($lines[0], 0, 7), fgets($resource, 8));
-            self::assertSame(min(7, strlen($lines[0])), ftell($resource));
+            self::assertSame(min(7, \strlen($lines[0])), ftell($resource));
             self::assertSame(substr($lines[0], 7), fgets($resource));
-            self::assertSame(strlen($lines[0]), ftell($resource));
+            self::assertSame(\strlen($lines[0]), ftell($resource));
 
-            if (1 !== count($lines)) {
+            if (1 !== \count($lines)) {
                 self::assertFalse(feof($resource));
                 self::assertSame($lines[1][0], fgetc($resource));
                 self::assertSame(substr($lines[1], 1), fgets($resource));
@@ -231,17 +226,15 @@ PHP
             }
 
             self::assertTrue(feof($resource));
-            self::assertSame(strlen($expectedResult), ftell($resource));
+            self::assertSame(\strlen($expectedResult), ftell($resource));
             self::assertTrue(fclose($resource));
         } else {
-            self::assertFalse(@call_user_func_array('fopen', $arguments));
+            self::assertFalse(@\call_user_func_array('fopen', $arguments));
         }
     }
 
     /**
      * {@see StreamWrapper} test with {@see fopen()}.
-     *
-     * @param string $mode
      *
      * @dataProvider getResourceInWritingModeCases
      */
@@ -250,9 +243,6 @@ PHP
         self::assertFalse(@fopen('http://foo', $mode));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getResourceInWritingModeCases()
     {
         yield ['w'];
@@ -269,8 +259,6 @@ PHP
      * {@see StreamWrapper} test with {@see copy()}.
      *
      * @param string|false $expectedResult
-     * @param string       $uri
-     * @param array|null   $options
      * @param string       $defaultUserAgent
      *
      * @dataProvider getRequestCases
@@ -291,11 +279,11 @@ PHP
         $this->setDefaultUserAgent($defaultUserAgent);
 
         if (false !== $expectedResult) {
-            self::assertTrue(call_user_func_array('copy', $arguments));
+            self::assertTrue(\call_user_func_array('copy', $arguments));
             self::assertTrue(file_exists($destination));
             self::assertSame($expectedResult, file_get_contents($destination));
         } else {
-            self::assertFalse(@call_user_func_array('copy', $arguments));
+            self::assertFalse(@\call_user_func_array('copy', $arguments));
             self::assertFalse(file_exists($destination));
         }
     }
@@ -304,8 +292,6 @@ PHP
      * {@see StreamWrapper} test with {@see file()}.
      *
      * @param string|false $expectedResult
-     * @param string       $uri
-     * @param array|null   $options
      * @param string       $defaultUserAgent
      *
      * @dataProvider getRequestCases
@@ -314,7 +300,7 @@ PHP
     {
         $arguments = [$uri];
         if (null !== $options) {
-            $arguments[] = false;
+            $arguments[] = 0;
             $arguments[] = stream_context_create($options);
         }
 
@@ -322,11 +308,11 @@ PHP
 
         if (false !== $expectedResult) {
             self::assertSame(
-                preg_split('/(?<=\n)/', $expectedResult),
-                call_user_func_array('file', $arguments)
+                preg_split('/(?<=\\n)/', $expectedResult),
+                \call_user_func_array('file', $arguments)
             );
         } else {
-            self::assertFalse(@call_user_func_array('file', $arguments));
+            self::assertFalse(@\call_user_func_array('file', $arguments));
         }
     }
 
@@ -334,8 +320,6 @@ PHP
      * {@see StreamWrapper} test with {@see readfile()}.
      *
      * @param string|false $expectedResult
-     * @param string       $uri
-     * @param array|null   $options
      * @param string       $defaultUserAgent
      *
      * @dataProvider getRequestCases
@@ -356,11 +340,11 @@ PHP
 
         if (false !== $expectedResult) {
             ob_start();
-            self::assertSame(strlen($expectedResult), call_user_func_array('readfile', $arguments));
+            self::assertSame(\strlen($expectedResult), \call_user_func_array('readfile', $arguments));
             self::assertSame($expectedResult, ob_get_contents());
             ob_end_clean();
         } else {
-            self::assertFalse(@call_user_func_array('readfile', $arguments));
+            self::assertFalse(@\call_user_func_array('readfile', $arguments));
         }
     }
 
@@ -372,10 +356,7 @@ PHP
         self::assertFalse(file_exists('http://foo'));
     }
 
-    /**
-     * @return Server
-     */
-    private static function createServer()
+    private static function createServer(): Server
     {
         return (new Server())
             ->whenHost('foo')
@@ -418,7 +399,7 @@ PHP
                 ->end()
                 ->whenPath('/infinite-redirections')
                     ->return(function (RequestInterface $request) {
-                        preg_match('/max=(\d+)(?:&current=(\d+))?/', $request->getUri()->getQuery(), $matches);
+                        preg_match('/max=(\\d+)(?:&current=(\\d+))?/', $request->getUri()->getQuery(), $matches);
 
                         $max = $matches[1];
                         $current = $matches[2] ?? 0;
@@ -439,14 +420,14 @@ PHP
                         return new Response(200, [], $request->getProtocolVersion());
                     })
                 ->end()
-                ->whenPath($regexp = '~^/http-status/(\d{3})$~', true)
+                ->whenPath($regexp = '~^/http-status/(\\d{3})$~', true)
                     ->return(function (RequestInterface $request) use ($regexp) {
                         $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
 
                         return new Response($status);
                     })
                 ->end()
-                ->whenPath($regexp = '~^/redirect-to-http-status/(\d{3})$~', true)
+                ->whenPath($regexp = '~^/redirect-to-http-status/(\\d{3})$~', true)
                     ->return(function (RequestInterface $request) use ($regexp) {
                         $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
 
@@ -459,9 +440,6 @@ PHP
         ;
     }
 
-    /**
-     * @return \Generator
-     */
     public function getRequestCases()
     {
         yield ["[GET] Foo 1\nFoo 2\nFoo 3", 'http://foo'];
@@ -549,9 +527,6 @@ PHP
         yield [false, 'http://foo/redirect-to-http-status/503'];
     }
 
-    /**
-     * @param string|null $userAgent
-     */
     private function setDefaultUserAgent(string $userAgent = null)
     {
         if (null !== $userAgent) {

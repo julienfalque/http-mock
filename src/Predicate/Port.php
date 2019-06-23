@@ -35,12 +35,10 @@ class Port implements Predicate
             $port = $this->getDefaultPort($request);
         }
 
-        return in_array($port, $this->ports, true);
+        return \in_array($port, $this->ports, true);
     }
 
     /**
-     * @param RequestInterface $request
-     *
      * @return int|null
      */
     private function getDefaultPort(RequestInterface $request)

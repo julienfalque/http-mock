@@ -14,9 +14,6 @@ use PHPUnit\Framework\TestCase;
  */
 class PatternPredicateTestCase extends TestCase
 {
-    /**
-     * @param PatternPredicate $predicate
-     */
     protected function doInvalidPatternTest(PatternPredicate $predicate)
     {
         $this->expectException(InvalidArgumentException::class);

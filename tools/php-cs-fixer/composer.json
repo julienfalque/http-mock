@@ -1,0 +1,15 @@
+{
+    "require": {
+        "php": "7.0.*",
+        "friendsofphp/php-cs-fixer": "^2.0"
+    },
+    "replace": {
+        "paragonie/random_compat": "*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php70": "*"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

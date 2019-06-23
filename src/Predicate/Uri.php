@@ -22,7 +22,7 @@ class Uri extends PatternPredicate
     public function __construct($pattern, $isRegularExpression = false)
     {
         if (!$isRegularExpression) {
-            $pattern = preg_replace('~^(\w+://[^/]+)/([?#].*)?$~', '$1$2', $pattern);
+            $pattern = preg_replace('~^(\\w+://[^/]+)/([?#].*)?$~', '$1$2', $pattern);
         }
 
         parent::__construct($pattern, $isRegularExpression);

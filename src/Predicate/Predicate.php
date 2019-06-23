@@ -13,10 +13,6 @@ interface Predicate
 {
     /**
      * Returns whether the given request passes the predicate.
-     *
-     * @param RequestInterface $request
-     *
-     * @return bool
      */
     public function __invoke(RequestInterface $request): bool;
 }

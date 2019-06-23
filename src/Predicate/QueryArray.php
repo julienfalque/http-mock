@@ -30,9 +30,6 @@ class QueryArray implements Predicate
 
     /**
      * Constructor.
-     *
-     * @param array $parameters
-     * @param bool  $isSubset
      */
     public function __construct(array $parameters, bool $isSubset = true)
     {
@@ -54,21 +51,15 @@ class QueryArray implements Predicate
         return $query === $this->parameters;
     }
 
-    /**
-     * @param array $subset
-     * @param array $array
-     *
-     * @return bool
-     */
     private function arrayIsSubset(array $subset, array $array): bool
     {
         foreach ($subset as $key => $value) {
-            if (!array_key_exists($key, $array)) {
+            if (!\array_key_exists($key, $array)) {
                 return false;
             }
 
-            if (is_array($value)) {
-                if (!is_array($array[$key])) {
+            if (\is_array($value)) {
+                if (!\is_array($array[$key])) {
                     return false;
                 }
 

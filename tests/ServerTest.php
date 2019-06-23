@@ -31,7 +31,6 @@ class ServerTest extends TestCase
      * {@see Server::return} test.
      *
      * @param ResponseInterface|callable $result
-     * @param ResponseInterface          $expectedResponse
      *
      * @dataProvider getResultCases
      */
@@ -47,9 +46,6 @@ class ServerTest extends TestCase
         );
     }
 
-    /**
-     * @return \Generator
-     */
     public function getResultCases()
     {
         $response = new Response();
@@ -96,10 +92,6 @@ class ServerTest extends TestCase
     /**
      * {@see Server::when} test.
      *
-     * @param callable         $predicate
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getWhenCases
      */
     public function testWhen(callable $predicate, RequestInterface $request, bool $expected)
@@ -110,10 +102,6 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhen} test.
      *
-     * @param callable         $predicate
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getWhenCases
      */
     public function testAndWhen(callable $predicate, RequestInterface $request, bool $expected)
@@ -121,9 +109,6 @@ class ServerTest extends TestCase
         $this->doWhenTest([$predicate], $request, $expected);
     }
 
-    /**
-     * @return \Generator
-     */
     public function getWhenCases()
     {
         $expectedRequest = new Request('GET', 'http://foo');
@@ -139,8 +124,6 @@ class ServerTest extends TestCase
      * {@see Server::whenProtocolVersion} test.
      *
      * @param string|float|int $version
-     * @param RequestInterface $request
-     * @param bool             $expected
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\ProtocolVersionTest::getMatchingCases
      */
@@ -153,8 +136,6 @@ class ServerTest extends TestCase
      * {@see Server::andWhenProtocolVersion} test.
      *
      * @param string|float|int $version
-     * @param RequestInterface $request
-     * @param bool             $expected
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\ProtocolVersionTest::getMatchingCases
      */
@@ -166,9 +147,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenMethod} test.
      *
-     * @param string|string[]  $method
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param string|string[] $method
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\MethodTest::getMatchingCases
      */
@@ -180,9 +159,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenMethod} test.
      *
-     * @param string|string[]  $method
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param string|string[] $method
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\MethodTest::getMatchingCases
      */
@@ -194,10 +171,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenUri} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\UriTest::getMatchingCases
      */
@@ -209,10 +183,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenUri} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\UriTest::getMatchingCases
      */
@@ -224,10 +195,6 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenScheme} test.
      *
-     * @param string           $scheme
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\SchemeTest::getMatchingCases
      */
     public function testWhenScheme(string $scheme, RequestInterface $request, bool $expected = true)
@@ -237,10 +204,6 @@ class ServerTest extends TestCase
 
     /**
      * {@see Server::andWhenScheme} test.
-     *
-     * @param string           $scheme
-     * @param RequestInterface $request
-     * @param bool             $expected
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\SchemeTest::getMatchingCases
      */
@@ -252,10 +215,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenHost} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HostTest::getMatchingCases
      */
@@ -267,10 +227,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenHost} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HostTest::getMatchingCases
      */
@@ -282,9 +239,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenPort} test.
      *
-     * @param int|int[]        $port
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param int|int[] $port
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PortTest::getMatchingCases
      */
@@ -296,9 +251,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenPort} test.
      *
-     * @param int|int[]        $port
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param int|int[] $port
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PortTest::getMatchingCases
      */
@@ -310,10 +263,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenPath} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PathTest::getMatchingCases
      */
@@ -325,10 +275,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenPath} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PathTest::getMatchingCases
      */
@@ -340,10 +287,8 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenQuery} test.
      *
-     * @param string|array     $pattern
-     * @param bool|null        $exactMatch
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param string|array $pattern
+     * @param bool|null    $exactMatch
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryTest::getMatchingCases
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryArrayTest::getMatchingCases
@@ -356,10 +301,8 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenQuery} test.
      *
-     * @param string|array     $pattern
-     * @param bool|null        $exactMatch
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param string|array $pattern
+     * @param bool|null    $exactMatch
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryTest::getMatchingCases
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryArrayTest::getMatchingCases
@@ -372,10 +315,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenFragment} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\FragmentTest::getMatchingCases
      */
@@ -387,10 +327,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenFragment} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\FragmentTest::getMatchingCases
      */
@@ -402,10 +339,6 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenHeaders} test.
      *
-     * @param array            $expectedHeaders
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HeadersTest::getMatchingCases
      */
     public function testWhenHeaders(array $expectedHeaders, RequestInterface $request, bool $expected = true)
@@ -415,10 +348,6 @@ class ServerTest extends TestCase
 
     /**
      * {@see Server::andWhenHeaders} test.
-     *
-     * @param array            $expectedHeaders
-     * @param RequestInterface $request
-     * @param bool             $expected
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HeadersTest::getMatchingCases
      */
@@ -430,10 +359,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenBody} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\BodyTest::getMatchingCases
      */
@@ -445,10 +371,7 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenBody} test.
      *
-     * @param string           $pattern
-     * @param bool|null        $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param bool|null $regexp
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\BodyTest::getMatchingCases
      */
@@ -457,18 +380,13 @@ class ServerTest extends TestCase
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
 
-    /**
-     * @param array            $arguments
-     * @param RequestInterface $request
-     * @param bool             $expected
-     */
     private function doWhenTest(array $arguments, RequestInterface $request, bool $expected)
     {
         $method = substr($this->getName(false), 4);
         $method[0] = strtolower($method[0]);
 
         $server = new Server();
-        $inner = call_user_func_array([$server, $method], $arguments);
+        $inner = \call_user_func_array([$server, $method], $arguments);
 
         if (0 === strpos($method, 'when')) {
             self::assertInstanceOf(Server::class, $inner);
@@ -485,12 +403,6 @@ class ServerTest extends TestCase
         );
     }
 
-    /**
-     * @param mixed            $value
-     * @param bool             $regexp
-     * @param RequestInterface $request
-     * @param bool             $expected
-     */
     private function doWhenWithPatternTest($value, bool $regexp, RequestInterface $request, bool $expected)
     {
         if (false === $regexp) {
@@ -526,7 +438,7 @@ class ServerTest extends TestCase
                     ->return($response5 = new Response())
                 ->end()
             ->end()
-        ->end();
+        ;
 
         self::assertSame($response1, $server->handle(new Request('GET', 'http://foo')));
         self::assertSame($response2, $server->handle(new Request('POST', 'http://foo')));
@@ -538,8 +450,6 @@ class ServerTest extends TestCase
 
     /**
      * {@see Server::__call()} test.
-     *
-     * @param string $method
      *
      * @dataProvider getMagicMethodMissingArgumentCases
      */
@@ -554,12 +464,9 @@ class ServerTest extends TestCase
             $method
         ));
 
-        $server->$method();
+        $server->{$method}();
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMagicMethodMissingArgumentCases()
     {
         yield ['whenMethod'];
@@ -585,8 +492,6 @@ class ServerTest extends TestCase
     /**
      * {@see Server::__call()} test.
      *
-     * @param string $method
-     *
      * @dataProvider getUndefinedMethodCases
      */
     public function testUndefinedMethod(string $method)
@@ -600,12 +505,9 @@ class ServerTest extends TestCase
             $method
         ));
 
-        $server->$method();
+        $server->{$method}();
     }
 
-    /**
-     * @return \Generator
-     */
     public function getUndefinedMethodCases()
     {
         yield ['whenFoo'];

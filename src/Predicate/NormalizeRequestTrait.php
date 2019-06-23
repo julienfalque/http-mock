@@ -14,11 +14,6 @@ use Psr\Http\Message\RequestInterface;
  */
 trait NormalizeRequestTrait
 {
-    /**
-     * @param RequestInterface $request
-     *
-     * @return RequestInterface
-     */
     private function normalizeRequest(RequestInterface $request): RequestInterface
     {
         $uri = $request->getUri();
@@ -26,9 +21,9 @@ trait NormalizeRequestTrait
 
         $normalizedPath = preg_replace('~/{2,}~', '/', $uri->getPath());
 
-        $normalizedPath = preg_replace('~/\.(/|$)~', '/', $normalizedPath);
+        $normalizedPath = preg_replace('~/\\.(/|$)~', '/', $normalizedPath);
         do {
-            $normalizedPath = preg_replace('~/[^/]+(?<!\.\.)/+\.\.(/|$)~', '/', $normalizedPath, 1, $count);
+            $normalizedPath = preg_replace('~/[^/]+(?<!\\.\\.)/+\\.\\.(/|$)~', '/', $normalizedPath, 1, $count);
         } while ($count);
 
         $normalizedPath = $this->decodePercentEncoding($normalizedPath);
@@ -52,11 +47,6 @@ trait NormalizeRequestTrait
         return $request;
     }
 
-    /**
-     * @param string $urlComponent
-     *
-     * @return string
-     */
     private function decodePercentEncoding(string $urlComponent): string
     {
         $urlComponent = str_replace('%20', '+', $urlComponent);

@@ -18,8 +18,6 @@ class Scheme implements Predicate
 
     /**
      * Constructor.
-     *
-     * @param string $scheme
      */
     public function __construct(string $scheme)
     {

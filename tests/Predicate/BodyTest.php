@@ -16,11 +16,6 @@ class BodyTest extends PatternPredicateTestCase
     /**
      * {@see Body::__invoke} test.
      *
-     * @param string           $pattern
-     * @param bool             $isRegularExpression
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getMatchingCases
      */
     public function testInvoke(
@@ -34,9 +29,6 @@ class BodyTest extends PatternPredicateTestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield ['Foo', false, $request = new Request('GET', 'http://foo', [], 'Foo')];

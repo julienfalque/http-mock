@@ -1,4 +1,6 @@
-/vendor/
+/.php_cs
 /.php_cs.cache
 /composer.lock
 /phpunit.xml
+/tools/php-cs-fixer/vendor/
+/vendor/

@@ -16,11 +16,6 @@ class FragmentTest extends PatternPredicateTestCase
     /**
      * {@see Fragment::__invoke} test.
      *
-     * @param string           $pattern
-     * @param bool             $isRegularExpression
-     * @param RequestInterface $request
-     * @param bool             $expected
-     *
      * @dataProvider getMatchingCases
      */
     public function testInvoke(
@@ -34,9 +29,6 @@ class FragmentTest extends PatternPredicateTestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield ['foo', false, $request = new Request('GET', 'http://foo#foo')];

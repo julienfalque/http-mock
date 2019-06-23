@@ -17,9 +17,7 @@ class PortTest extends TestCase
     /**
      * {@see Port::__invoke} test.
      *
-     * @param int|int[]        $ports
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param int|int[] $ports
      *
      * @dataProvider getMatchingCases
      */
@@ -30,9 +28,6 @@ class PortTest extends TestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield [80, new Request('GET', 'http://foo')];

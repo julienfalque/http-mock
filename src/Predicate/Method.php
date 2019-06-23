@@ -31,6 +31,6 @@ class Method implements Predicate
      */
     public function __invoke(RequestInterface $request): bool
     {
-        return in_array($request->getMethod(), $this->methods, true);
+        return \in_array($request->getMethod(), $this->methods, true);
     }
 }

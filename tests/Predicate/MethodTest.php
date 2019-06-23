@@ -17,9 +17,7 @@ class MethodTest extends TestCase
     /**
      * {@see Method::__invoke} test.
      *
-     * @param string|string[]  $methods
-     * @param RequestInterface $request
-     * @param bool             $expected
+     * @param string|string[] $methods
      *
      * @dataProvider getMatchingCases
      */
@@ -30,9 +28,6 @@ class MethodTest extends TestCase
         self::assertSame($expected, $predicate($request));
     }
 
-    /**
-     * @return \Generator
-     */
     public function getMatchingCases()
     {
         yield ['FOO', $request = new Request('FOO', 'http://foo')];

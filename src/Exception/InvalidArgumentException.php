@@ -13,12 +13,6 @@ class InvalidArgumentException extends \InvalidArgumentException implements Exce
      * Creates an instance for an invalid argument in a method call.
      *
      * @param object $target
-     * @param string $method
-     * @param int    $argument
-     * @param string $expectedType
-     * @param mixed  $value
-     *
-     * @return self
      */
     public static function withExpectedType(
         $target,
@@ -27,13 +21,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements Exce
         string $expectedType,
         $value
     ): self {
-        if ('object' === $type = gettype($value)) {
-            $type = get_class($value);
+        if ('object' === $type = \gettype($value)) {
+            $type = \get_class($value);
         }
 
         return new self(sprintf(
             'Method %s::%s() expects argument %d to be %s, %s given.',
-            get_class($target),
+            \get_class($target),
             $method,
             $argument,
             $expectedType,
