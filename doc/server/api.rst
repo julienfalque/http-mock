@@ -36,13 +36,13 @@ return()
 
 Defines the response of the current layer when it matches the request.
 
-The response can be either:
-
-- a ``Psr\Http\Message\ResponseInterface`` instance;
-- a callable that takes a ``Psr\Http\Message\RequestInterface`` instance as first parameter and returns a response.
-
 Parameters
-  **response**: the reponse to return.
+  **response**: the response to return.
+
+  The response can either be:
+
+  - a ``Psr\Http\Message\ResponseInterface`` instance;
+  - a callable that takes a ``Psr\Http\Message\RequestInterface`` instance as first parameter and returns a response.
 
 Return value
   The current layer.
