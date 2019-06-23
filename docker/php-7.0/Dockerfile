@@ -1,7 +1,7 @@
 FROM ubuntu:19.04
 
 RUN apt update \
-    && apt install --assume-yes curl git unzip \
+    && apt install --assume-yes curl git make unzip \
     \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt install --assume-yes software-properties-common python3-software-properties \
