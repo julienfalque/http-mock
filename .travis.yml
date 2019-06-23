@@ -1,15 +1,32 @@
 language: php
 
-php:
-    - 7.0
-    - 7.1
+git:
+    depth: 1
 
 cache:
     directories:
         - $HOME/.composer/cache
 
-before_script:
-    - composer install -n
-
-script:
-    - vendor/bin/phpunit
+jobs:
+    include:
+        -
+            php: 7.0
+            script:
+                - make phpunit
+                - make php-cs-fixer-dry-run
+        -
+            php: 7.1
+            script:
+                - make phpunit
+        -
+            php: 7.2
+            script:
+                - make phpunit
+        -
+            php: 7.3
+            script:
+                - make phpunit
+        -
+            php: 7.4snapshot
+            script:
+                - make phpunit
