@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+    php-7.0:
+        build:
+            context: docker/php-7.0
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+
+    php-7.1:
+        build:
+            context: docker/php-7.1
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+
+    php-7.2:
+        build:
+            context: docker/php-7.2
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+
+    php-7.3:
+        build:
+            context: docker/php-7.3
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+
+    php-7.4:
+        build:
+            context: docker/php-7.4
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
