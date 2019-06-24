@@ -1,0 +1,24 @@
+includes:
+    - tools/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
+    - tools/phpstan/vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    ignoreErrors:
+        -
+            message: '/^Result of && is always false\.$/'
+            path: src/Server.php
+        -
+            message: '/^Parameter #1 \$result of method Jfalque\\HttpMock\\Server::return\(\) expects \(callable\)\|Psr\\Http\\Message\\ResponseInterface, int given\.$/'
+            path: tests/ServerTest.php
+        -
+            message: '/^Cannot call method .+?\(\) on Jfalque\\HttpMock\\Server\|null\.$/'
+            path: tests/ServerTest.php
+        -
+            message: '/^Cannot call method .+?\(\) on Jfalque\\HttpMock\\Server\|null\.$/'
+            path: tests/StreamWrapperTest.php
+        -
+            message: '/^Parameter #\d+ \$.+? of static method PHPUnit\\Framework\\Assert::assert.+?\(\) expects .+?, .+? given\.$/'
+            path: tests/StreamWrapperTest.php
+        -
+            message: '/^Call to static method PHPUnit\\Framework\\Assert::assertFalse\(\) with .+? will always evaluate to false\.$/s'
+            path: tests/StreamWrapperTest.php

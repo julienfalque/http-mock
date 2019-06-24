@@ -17,7 +17,7 @@ use Psr\Http\Message\RequestInterface;
 class StreamWrapperTest extends TestCase
 {
     /**
-     * @var Server
+     * @var Server|null
      */
     private static $server;
 
@@ -51,6 +51,10 @@ PHP
     protected function setUp()
     {
         if (!\in_array($this->getName(), ['testRegister', 'testUsageWithoutServer'], true)) {
+            if (null === self::$server) {
+                throw new \LogicException('Test server is not initialized.');
+            }
+
             StreamWrapper::register(self::$server);
         }
     }
@@ -95,6 +99,10 @@ PHP
     {
         self::assertFalse(@file_get_contents('http://foo'));
         self::assertFalse(@file_get_contents('https://foo'));
+
+        if (null === self::$server) {
+            throw new \LogicException('Test server is not initialized.');
+        }
 
         StreamWrapper::register(self::$server);
 
@@ -195,6 +203,10 @@ PHP
             self::assertTrue(\is_resource($resource));
 
             $lines = preg_split('/(?<=\\n)/', $expectedResult);
+
+            if (false === $lines) {
+                throw new \LogicException('Call to preg_split() failed.');
+            }
 
             self::assertFalse(fstat($resource));
             self::assertSame(0, ftell($resource));
@@ -346,7 +358,8 @@ PHP
 
     private static function createServer(): Server
     {
-        return (new Server())
+        $server = new Server();
+        $server
             ->whenHost('foo')
                 ->whenPath('/')
                     ->whenMethod('GET')
@@ -426,6 +439,8 @@ PHP
                 ->end()
             ->end()
         ;
+
+        return $server;
     }
 
     public function getRequestCases()
@@ -518,7 +533,13 @@ PHP
     private function setDefaultUserAgent(string $userAgent = null)
     {
         if (null !== $userAgent) {
-            $this->iniUserAgent = ini_set('user_agent', $userAgent);
+            $oldValue = ini_set('user_agent', $userAgent);
+
+            if (false === $oldValue) {
+                throw new \RuntimeException("Could not set configuration option \"user_agent\" to \"{$userAgent}\".");
+            }
+
+            $this->iniUserAgent = $oldValue;
         }
     }
 }

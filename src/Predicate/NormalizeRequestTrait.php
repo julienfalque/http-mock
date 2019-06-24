@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfalque\HttpMock\Predicate;
 
+use Jfalque\HttpMock\Exception\RequestNormalizationFailedException;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -19,11 +20,11 @@ trait NormalizeRequestTrait
         $uri = $request->getUri();
         $updated = false;
 
-        $normalizedPath = preg_replace('~/{2,}~', '/', $uri->getPath());
+        $normalizedPath = $this->pregReplace('~/{2,}~', '/', $uri->getPath());
 
-        $normalizedPath = preg_replace('~/\\.(/|$)~', '/', $normalizedPath);
+        $normalizedPath = $this->pregReplace('~/\\.(/|$)~', '/', $normalizedPath);
         do {
-            $normalizedPath = preg_replace('~/[^/]+(?<!\\.\\.)/+\\.\\.(/|$)~', '/', $normalizedPath, 1, $count);
+            $normalizedPath = $this->pregReplace('~/[^/]+(?<!\\.\\.)/+\\.\\.(/|$)~', '/', $normalizedPath, 1, $count);
         } while ($count);
 
         $normalizedPath = $this->decodePercentEncoding($normalizedPath);
@@ -52,5 +53,16 @@ trait NormalizeRequestTrait
         $urlComponent = str_replace('%20', '+', $urlComponent);
 
         return rawurldecode($urlComponent);
+    }
+
+    private function pregReplace(string $pattern, string $replacement, string $subject, int $limit = -1, int &$count = null): string
+    {
+        $result = preg_replace($pattern, $replacement, $subject, $limit, $count);
+
+        if (null === $result) {
+            throw RequestNormalizationFailedException::create();
+        }
+
+        return $result;
     }
 }

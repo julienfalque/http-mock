@@ -12,7 +12,7 @@ use Psr\Http\Message\RequestInterface;
 class ProtocolVersion implements Predicate
 {
     /**
-     * @var string
+     * @var float
      */
     private $version;
 

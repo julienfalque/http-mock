@@ -2,5 +2,5 @@
 /.php_cs.cache
 /composer.lock
 /phpunit.xml
-/tools/php-cs-fixer/vendor/
+/tools/*/vendor/
 /vendor/

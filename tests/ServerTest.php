@@ -171,11 +171,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenUri} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\UriTest::getMatchingCases
      */
-    public function testWhenUri(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testWhenUri(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -183,11 +181,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenUri} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\UriTest::getMatchingCases
      */
-    public function testAndWhenUri(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testAndWhenUri(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -215,11 +211,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenHost} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HostTest::getMatchingCases
      */
-    public function testWhenHost(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testWhenHost(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -227,11 +221,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenHost} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\HostTest::getMatchingCases
      */
-    public function testAndWhenHost(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testAndWhenHost(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -263,11 +255,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenPath} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PathTest::getMatchingCases
      */
-    public function testWhenPath(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testWhenPath(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -275,11 +265,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenPath} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\PathTest::getMatchingCases
      */
-    public function testAndWhenPath(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testAndWhenPath(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -288,12 +276,11 @@ class ServerTest extends TestCase
      * {@see Server::whenQuery} test.
      *
      * @param string|array $pattern
-     * @param bool|null    $exactMatch
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryTest::getMatchingCases
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryArrayTest::getMatchingCases
      */
-    public function testWhenQuery($pattern, $exactMatch, RequestInterface $request, bool $expected = true)
+    public function testWhenQuery($pattern, bool $exactMatch, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $exactMatch, $request, $expected);
     }
@@ -302,12 +289,11 @@ class ServerTest extends TestCase
      * {@see Server::andWhenQuery} test.
      *
      * @param string|array $pattern
-     * @param bool|null    $exactMatch
      *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryTest::getMatchingCases
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\QueryArrayTest::getMatchingCases
      */
-    public function testAndWhenQuery($pattern, $exactMatch, RequestInterface $request, bool $expected = true)
+    public function testAndWhenQuery($pattern, bool $exactMatch, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $exactMatch, $request, $expected);
     }
@@ -315,11 +301,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenFragment} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\FragmentTest::getMatchingCases
      */
-    public function testWhenFragment(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testWhenFragment(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -327,11 +311,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenFragment} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\FragmentTest::getMatchingCases
      */
-    public function testAndWhenFragment(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testAndWhenFragment(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -359,11 +341,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::whenBody} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\BodyTest::getMatchingCases
      */
-    public function testWhenBody(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testWhenBody(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -371,11 +351,9 @@ class ServerTest extends TestCase
     /**
      * {@see Server::andWhenBody} test.
      *
-     * @param bool|null $regexp
-     *
      * @dataProvider \Jfalque\HttpMock\Tests\Predicate\BodyTest::getMatchingCases
      */
-    public function testAndWhenBody(string $pattern, $regexp, RequestInterface $request, bool $expected = true)
+    public function testAndWhenBody(string $pattern, bool $regexp, RequestInterface $request, bool $expected = true)
     {
         $this->doWhenWithPatternTest($pattern, $regexp, $request, $expected);
     }
@@ -386,7 +364,17 @@ class ServerTest extends TestCase
         $method[0] = strtolower($method[0]);
 
         $server = new Server();
-        $inner = \call_user_func_array([$server, $method], $arguments);
+        $callable = [$server, $method];
+
+        if (!\is_callable($callable)) {
+            throw new \LogicException(sprintf(
+                'Method %s::%s() does not exist.',
+                \get_class($server),
+                $method
+            ));
+        }
+
+        $inner = \call_user_func_array($callable, $arguments);
 
         if (0 === strpos($method, 'when')) {
             self::assertInstanceOf(Server::class, $inner);

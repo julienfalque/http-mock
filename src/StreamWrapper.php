@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfalque\HttpMock;
 
 use GuzzleHttp\Psr7\Request;
+use Jfalque\HttpMock\Exception\NoHttpResponseAvailableException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -15,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 final class StreamWrapper
 {
     /**
-     * @var ServerInterface
+     * @var ServerInterface|null
      */
     private static $server;
 
@@ -27,7 +28,7 @@ final class StreamWrapper
     public $context;
 
     /**
-     * @var ResponseInterface
+     * @var ResponseInterface|null
      */
     private $response;
 
@@ -241,6 +242,10 @@ final class StreamWrapper
      */
     public function stream_read(int $length): string
     {
+        if (null === $this->response) {
+            throw NoHttpResponseAvailableException::create();
+        }
+
         return $this->response->getBody()->read($length);
     }
 
@@ -249,6 +254,10 @@ final class StreamWrapper
      */
     public function stream_seek(int $offset, int $whence = SEEK_SET): bool
     {
+        if (null === $this->response) {
+            throw NoHttpResponseAvailableException::create();
+        }
+
         $body = $this->response->getBody();
         if (!$body->isSeekable()) {
             return false;
@@ -268,6 +277,10 @@ final class StreamWrapper
      */
     public function stream_tell(): int
     {
+        if (null === $this->response) {
+            throw NoHttpResponseAvailableException::create();
+        }
+
         return $this->response->getBody()->tell();
     }
 
@@ -276,6 +289,10 @@ final class StreamWrapper
      */
     public function stream_eof(): bool
     {
+        if (null === $this->response) {
+            throw NoHttpResponseAvailableException::create();
+        }
+
         return $this->response->getBody()->eof();
     }
 

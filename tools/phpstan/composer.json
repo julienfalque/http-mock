@@ -1,0 +1,13 @@
+{
+    "require": {
+        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11"
+    },
+    "replace": {
+        "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php73": "*"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -235,10 +235,10 @@ final class Server implements ServerInterface
             }
         }
 
-        if (\is_callable($result = $this->result)) {
-            return $result($request);
+        if (\is_callable($this->result)) {
+            return ($this->result)($request);
         }
 
-        return $result;
+        return $this->result;
     }
 }

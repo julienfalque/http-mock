@@ -30,3 +30,4 @@ jobs:
             php: 7.4snapshot
             script:
                 - make phpunit
+                - make phpstan
