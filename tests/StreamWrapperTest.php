@@ -199,8 +199,8 @@ PHP
         $this->setDefaultUserAgent($defaultUserAgent);
 
         if (false !== $expectedResult) {
-            $resource = \call_user_func_array('fopen', $arguments);
-            self::assertTrue(\is_resource($resource));
+            $resource = fopen(...$arguments);
+            self::assertInternalType('resource', $resource);
 
             $lines = preg_split('/(?<=\\n)/', $expectedResult);
 
@@ -229,7 +229,7 @@ PHP
             self::assertSame(\strlen($expectedResult), ftell($resource));
             self::assertTrue(fclose($resource));
         } else {
-            self::assertFalse(@\call_user_func_array('fopen', $arguments));
+            self::assertFalse(@fopen(...$arguments));
         }
     }
 
@@ -279,12 +279,12 @@ PHP
         $this->setDefaultUserAgent($defaultUserAgent);
 
         if (false !== $expectedResult) {
-            self::assertTrue(\call_user_func_array('copy', $arguments));
-            self::assertTrue(file_exists($destination));
+            self::assertTrue(copy(...$arguments));
+            self::assertFileExists($destination);
             self::assertSame($expectedResult, file_get_contents($destination));
         } else {
-            self::assertFalse(@\call_user_func_array('copy', $arguments));
-            self::assertFalse(file_exists($destination));
+            self::assertFalse(@copy(...$arguments));
+            self::assertFileNotExists($destination);
         }
     }
 
@@ -309,10 +309,10 @@ PHP
         if (false !== $expectedResult) {
             self::assertSame(
                 preg_split('/(?<=\\n)/', $expectedResult),
-                \call_user_func_array('file', $arguments)
+                file(...$arguments)
             );
         } else {
-            self::assertFalse(@\call_user_func_array('file', $arguments));
+            self::assertFalse(@file(...$arguments));
         }
     }
 
@@ -340,11 +340,10 @@ PHP
 
         if (false !== $expectedResult) {
             ob_start();
-            self::assertSame(\strlen($expectedResult), \call_user_func_array('readfile', $arguments));
-            self::assertSame($expectedResult, ob_get_contents());
-            ob_end_clean();
+            self::assertSame(\strlen($expectedResult), readfile(...$arguments));
+            self::assertSame($expectedResult, ob_get_clean());
         } else {
-            self::assertFalse(@\call_user_func_array('readfile', $arguments));
+            self::assertFalse(@readfile(...$arguments));
         }
     }
 
@@ -353,7 +352,7 @@ PHP
      */
     public function testWithFileExists(): void
     {
-        self::assertFalse(file_exists('http://foo'));
+        self::assertFileNotExists('http://foo');
     }
 
     private static function createServer(): Server
@@ -399,7 +398,7 @@ PHP
                     ->return(new Response(200, [], 'Redirected'))
                 ->end()
                 ->whenPath('/infinite-redirections')
-                    ->return(function (RequestInterface $request) {
+                    ->return(static function (RequestInterface $request) {
                         preg_match('/max=(\\d+)(?:&current=(\\d+))?/', $request->getUri()->getQuery(), $matches);
 
                         $max = $matches[1];
@@ -417,19 +416,19 @@ PHP
                     })
                 ->end()
                 ->whenPath('/protocol-version')
-                    ->return(function (RequestInterface $request) {
+                    ->return(static function (RequestInterface $request) {
                         return new Response(200, [], $request->getProtocolVersion());
                     })
                 ->end()
                 ->whenPath($regexp = '~^/http-status/(\\d{3})$~', true)
-                    ->return(function (RequestInterface $request) use ($regexp) {
+                    ->return(static function (RequestInterface $request) use ($regexp) {
                         $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
 
                         return new Response($status);
                     })
                 ->end()
                 ->whenPath($regexp = '~^/redirect-to-http-status/(\\d{3})$~', true)
-                    ->return(function (RequestInterface $request) use ($regexp) {
+                    ->return(static function (RequestInterface $request) use ($regexp) {
                         $status = (int) preg_replace($regexp, '$1', $request->getUri()->getPath());
 
                         return new Response(301, [

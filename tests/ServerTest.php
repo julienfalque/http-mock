@@ -51,7 +51,7 @@ class ServerTest extends TestCase
         $response = new Response();
 
         yield [$response, $response];
-        yield [function () use ($response) { return $response; }, $response];
+        yield [static function () use ($response) { return $response; }, $response];
     }
 
     /**
@@ -62,7 +62,7 @@ class ServerTest extends TestCase
         $expectedResponse = new Response();
 
         $server = new Server();
-        $server->return(function () use ($expectedResponse) {
+        $server->return(static function () use ($expectedResponse) {
             return $expectedResponse;
         });
 
@@ -112,7 +112,7 @@ class ServerTest extends TestCase
     public function getWhenCases(): iterable
     {
         $expectedRequest = new Request('GET', 'http://foo');
-        $predicate = function (RequestInterface $request) use ($expectedRequest) {
+        $predicate = static function (RequestInterface $request) use ($expectedRequest) {
             return $request === $expectedRequest;
         };
 
