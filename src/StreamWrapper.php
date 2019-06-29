@@ -42,7 +42,7 @@ final class StreamWrapper
      * The wrapper can be unregistered using {@see unregister()} method. Note that this will restore the PHP built-in
      * wrapper; if you want to use another custom wrapper, you will have to register it again.
      */
-    public static function register(ServerInterface $server)
+    public static function register(ServerInterface $server): void
     {
         self::$server = $server;
 
@@ -60,7 +60,7 @@ final class StreamWrapper
     /**
      * Restores PHP built-in HTTP wrapper.
      */
-    public static function unregister()
+    public static function unregister(): void
     {
         @stream_wrapper_restore('http');
         @stream_wrapper_restore('https');
@@ -109,11 +109,11 @@ final class StreamWrapper
 
             if (isset($contextOptions['header'])) {
                 foreach ((array) $contextOptions['header'] as $header) {
-                    if (!\is_string($header) || !strpos($header, ':')) {
+                    if (!\is_string($header) || false === strpos($header, ':')) {
                         continue;
                     }
 
-                    list($name, $value) = preg_split('/:\\s*/', $header, 2);
+                    [$name, $value] = preg_split('/:\\s*/', $header, 2);
                     if (!isset($headers[$name])) {
                         $headers[$name] = $value;
                     }
@@ -170,13 +170,15 @@ final class StreamWrapper
         if ($followRedirects) {
             $redirections = 0;
             $currentRequest = $request;
-            while (($redirectUri = $this->response->getHeader('Location')) && '' !== $redirectUri = $redirectUri[0]) {
+            while (([] !== $redirectUri = $this->response->getHeader('Location')) && '' !== $redirectUri = $redirectUri[0]) {
                 $requestUri = $currentRequest->getUri();
 
                 if (false === strpos($redirectUri, '://')) {
                     if (0 !== strpos($redirectUri, '/')) {
                         $path = $requestUri->getPath();
-                        $redirectUri = substr($path, 0, strrpos($path, '/') + 1).'/'.$redirectUri;
+                        /** @var int $lastPosition */
+                        $lastPosition = strrpos($path, '/');
+                        $redirectUri = substr($path, 0, $lastPosition + 1).'/'.$redirectUri;
                     }
 
                     if (null !== $port = $requestUri->getPort()) {
@@ -308,7 +310,7 @@ final class StreamWrapper
 
     private function triggerError(string $message, int $options): bool
     {
-        if ($options & STREAM_REPORT_ERRORS) {
+        if (1 === ($options & STREAM_REPORT_ERRORS)) {
             trigger_error($message, E_USER_WARNING);
         }
 

@@ -16,7 +16,7 @@ class Path extends PatternPredicate
 {
     use NormalizeRequestTrait;
 
-    public function __construct($pattern, $isRegularExpression = false)
+    public function __construct(string $pattern, bool $isRegularExpression = false)
     {
         if ('' === $pattern && !$isRegularExpression) {
             $pattern = '/';

@@ -21,14 +21,14 @@ class ProtocolVersionTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke($version, RequestInterface $request, bool $expected = true)
+    public function testInvoke($version, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new ProtocolVersion($version);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['1.0', $request = new Request('GET', 'http://foo', [], null, '1.0')];
         yield ['1', $request];

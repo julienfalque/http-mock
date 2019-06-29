@@ -19,14 +19,14 @@ class QueryArrayTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke(array $parameters, bool $isSubset, RequestInterface $request, bool $expected = true)
+    public function testInvoke(array $parameters, bool $isSubset, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new QueryArray($parameters, $isSubset);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield [['foo' => 'bar'], true, new Request('GET', 'http://foo?foo=bar')];
         yield [['foo' => 'bar'], true, new Request('GET', 'http://foo?foo=bar&bar=baz')];

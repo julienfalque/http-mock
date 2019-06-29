@@ -23,13 +23,13 @@ class UriTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Uri($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['http://foo', false, $request = new Request('GET', 'http://foo')];
         yield ['http://foo/', false, $request];
@@ -71,7 +71,7 @@ class UriTest extends PatternPredicateTestCase
     /**
      * {@see Uri::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Uri('foo', true));
     }

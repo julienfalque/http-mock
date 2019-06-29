@@ -23,13 +23,13 @@ class PathTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Path($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['', false, $request = new Request('GET', 'http://foo')];
         yield ['/', false, $request];
@@ -58,7 +58,7 @@ class PathTest extends PatternPredicateTestCase
     /**
      * {@see Path::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Path('foo', true));
     }

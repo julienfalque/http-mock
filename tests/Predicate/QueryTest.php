@@ -23,13 +23,13 @@ class QueryTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Query($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['foo=bar', false, $request = new Request('GET', 'http://foo?foo=bar')];
         yield ['/foo=/', true, $request];
@@ -49,7 +49,7 @@ class QueryTest extends PatternPredicateTestCase
     /**
      * {@see Query::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Query('foo', true));
     }

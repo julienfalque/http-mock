@@ -33,10 +33,7 @@ class Port implements Predicate
         return \in_array($port, $this->ports, true);
     }
 
-    /**
-     * @return int|null
-     */
-    private function getDefaultPort(RequestInterface $request)
+    private function getDefaultPort(RequestInterface $request): ?int
     {
         switch ($request->getUri()->getScheme()) {
             case 'http':

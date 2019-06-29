@@ -19,14 +19,14 @@ class HeadersTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke(array $headers, RequestInterface $request, bool $expected = true)
+    public function testInvoke(array $headers, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new Headers($headers);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield [['X-Foo' => 'foo'], $request = new Request('GET', 'http://foo', ['X-Foo' => 'foo'])];
         yield [['x-foo' => 'foo'], $request];

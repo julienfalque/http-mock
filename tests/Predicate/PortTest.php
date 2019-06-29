@@ -21,14 +21,14 @@ class PortTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke($ports, RequestInterface $request, bool $expected = true)
+    public function testInvoke($ports, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new Port($ports);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield [80, new Request('GET', 'http://foo')];
         yield [80, new Request('GET', 'http://foo:80')];

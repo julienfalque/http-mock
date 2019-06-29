@@ -5,7 +5,7 @@ vendor:
 tests: phpunit phpstan
 
 phpunit: vendor
-	vendor/bin/phpunit
+	vendor/bin/phpunit --order-by=depends,defects --stop-on-failure --testdox --colors=auto
 
 phpstan: tools/phpstan/vendor
 	tools/phpstan/vendor/bin/phpstan --level=7 --configuration=phpstan.neon analyse src tests

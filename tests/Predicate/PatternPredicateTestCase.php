@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PatternPredicateTestCase extends TestCase
 {
-    protected function doInvalidPatternTest(PatternPredicate $predicate)
+    protected function doInvalidPatternTest(PatternPredicate $predicate): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The regular expression pattern "foo" is invalid: Delimiter must not be alphanumeric or backslash.');

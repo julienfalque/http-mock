@@ -23,13 +23,13 @@ class BodyTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Body($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['Foo', false, $request = new Request('GET', 'http://foo', [], 'Foo')];
         yield ['/Foo/', true, $request];
@@ -43,7 +43,7 @@ class BodyTest extends PatternPredicateTestCase
     /**
      * {@see Body::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Body('foo', true));
     }

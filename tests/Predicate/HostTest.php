@@ -23,13 +23,13 @@ class HostTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Host($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['foo', false, $request = new Request('GET', 'http://foo')];
         yield ['/foo/', true, $request];
@@ -43,7 +43,7 @@ class HostTest extends PatternPredicateTestCase
     /**
      * {@see Host::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Host('foo', true));
     }

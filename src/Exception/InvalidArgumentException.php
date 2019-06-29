@@ -13,6 +13,7 @@ class InvalidArgumentException extends \InvalidArgumentException implements Exce
      * Creates an instance for an invalid argument in a method call.
      *
      * @param object $target
+     * @param mixed  $value  the invalid argument
      */
     public static function withExpectedType(
         $target,

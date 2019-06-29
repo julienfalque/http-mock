@@ -19,14 +19,14 @@ class SchemeTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke(string $scheme, RequestInterface $request, bool $expected = true)
+    public function testInvoke(string $scheme, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new Scheme($scheme);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['http', $request = new Request('GET', 'http://foo')];
         yield ['HTTP', $request];

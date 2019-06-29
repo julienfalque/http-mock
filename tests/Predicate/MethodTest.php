@@ -21,14 +21,14 @@ class MethodTest extends TestCase
      *
      * @dataProvider getMatchingCases
      */
-    public function testInvoke($methods, RequestInterface $request, bool $expected = true)
+    public function testInvoke($methods, RequestInterface $request, bool $expected = true): void
     {
         $predicate = new Method($methods);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['FOO', $request = new Request('FOO', 'http://foo')];
         yield [['FOO'], $request];

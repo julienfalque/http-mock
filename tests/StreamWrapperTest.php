@@ -26,7 +26,7 @@ class StreamWrapperTest extends TestCase
      */
     private $iniUserAgent;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         eval(<<<'PHP'
 namespace Jfalque\HttpMock;
@@ -48,7 +48,7 @@ PHP
         self::$server = self::createServer();
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!\in_array($this->getName(), ['testRegister', 'testUsageWithoutServer'], true)) {
             if (null === self::$server) {
@@ -59,7 +59,7 @@ PHP
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ('testUnregister' !== $this->getName()) {
             StreamWrapper::unregister();
@@ -71,7 +71,7 @@ PHP
         }
     }
 
-    public static function stearDownAfterClass()
+    public static function stearDownAfterClass(): void
     {
         self::$server = null;
     }
@@ -79,7 +79,7 @@ PHP
     /**
      * {@see StreamWrapper} test.
      */
-    public function testUsageWithoutServer()
+    public function testUsageWithoutServer(): void
     {
         stream_wrapper_unregister('http');
         stream_wrapper_register('http', StreamWrapper::class);
@@ -95,7 +95,7 @@ PHP
     /**
      * {@see StreamWrapper::register()} test.
      */
-    public function testRegister()
+    public function testRegister(): void
     {
         self::assertFalse(@file_get_contents('http://foo'));
         self::assertFalse(@file_get_contents('https://foo'));
@@ -122,7 +122,7 @@ PHP
     /**
      * {@see StreamWrapper::unregister()} test.
      */
-    public function testUnregister()
+    public function testUnregister(): void
     {
         $expectedResponse = "[GET] Foo 1\nFoo 2\nFoo 3";
 
@@ -153,7 +153,7 @@ PHP
         string $uri,
         array $options = null,
         string $defaultUserAgent = null
-    ) {
+    ): void {
         $context = null !== $options ? stream_context_create($options) : null;
 
         $this->setDefaultUserAgent($defaultUserAgent);
@@ -189,7 +189,7 @@ PHP
         string $uri,
         array $options = null,
         string $defaultUserAgent = null
-    ) {
+    ): void {
         $arguments = [$uri, 'r'];
         if (null !== $options) {
             $arguments[] = false;
@@ -238,12 +238,12 @@ PHP
      *
      * @dataProvider getResourceInWritingModeCases
      */
-    public function testWithResourceInWritingMode(string $mode)
+    public function testWithResourceInWritingMode(string $mode): void
     {
         self::assertFalse(@fopen('http://foo', $mode));
     }
 
-    public function getResourceInWritingModeCases()
+    public function getResourceInWritingModeCases(): iterable
     {
         yield ['w'];
         yield ['w+'];
@@ -268,7 +268,7 @@ PHP
         string $uri,
         array $options = null,
         string $defaultUserAgent = null
-    ) {
+    ): void {
         $root = vfsStream::setup();
 
         $arguments = [$uri, $destination = $root->url().'/file'];
@@ -296,7 +296,7 @@ PHP
      *
      * @dataProvider getRequestCases
      */
-    public function testWithFile($expectedResult, string $uri, array $options = null, string $defaultUserAgent = null)
+    public function testWithFile($expectedResult, string $uri, array $options = null, string $defaultUserAgent = null): void
     {
         $arguments = [$uri];
         if (null !== $options) {
@@ -329,7 +329,7 @@ PHP
         string $uri,
         array $options = null,
         string $defaultUserAgent = null
-    ) {
+    ): void {
         $arguments = [$uri];
         if (null !== $options) {
             $arguments[] = false;
@@ -351,7 +351,7 @@ PHP
     /**
      * {@see StreamWrapper} test with {@see file_exists()}.
      */
-    public function testWithFileExists()
+    public function testWithFileExists(): void
     {
         self::assertFalse(file_exists('http://foo'));
     }
@@ -443,7 +443,7 @@ PHP
         return $server;
     }
 
-    public function getRequestCases()
+    public function getRequestCases(): iterable
     {
         yield ["[GET] Foo 1\nFoo 2\nFoo 3", 'http://foo'];
 
@@ -530,7 +530,7 @@ PHP
         yield [false, 'http://foo/redirect-to-http-status/503'];
     }
 
-    private function setDefaultUserAgent(string $userAgent = null)
+    private function setDefaultUserAgent(string $userAgent = null): void
     {
         if (null !== $userAgent) {
             $oldValue = ini_set('user_agent', $userAgent);

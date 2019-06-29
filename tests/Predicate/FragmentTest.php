@@ -23,13 +23,13 @@ class FragmentTest extends PatternPredicateTestCase
         bool $isRegularExpression,
         RequestInterface $request,
         bool $expected = true
-    ) {
+    ): void {
         $predicate = new Fragment($pattern, $isRegularExpression);
 
         self::assertSame($expected, $predicate($request));
     }
 
-    public function getMatchingCases()
+    public function getMatchingCases(): iterable
     {
         yield ['foo', false, $request = new Request('GET', 'http://foo#foo')];
         yield ['/foo/', true, $request];
@@ -43,7 +43,7 @@ class FragmentTest extends PatternPredicateTestCase
     /**
      * {@see Fragment::__invoke} test.
      */
-    public function testInvokeWithInvalidPattern()
+    public function testInvokeWithInvalidPattern(): void
     {
         $this->doInvalidPatternTest(new Fragment('foo', true));
     }

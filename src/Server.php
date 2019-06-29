@@ -110,7 +110,7 @@ final class Server implements ServerInterface
      */
     public function __call(string $method, array $arguments): self
     {
-        if (!preg_match('/^(when|andWhen)(.+)$/', $method, $matches)) {
+        if (0 === preg_match('/^(when|andWhen)(.+)$/', $method, $matches)) {
             throw BadMethodCallException::undefinedMethod($this, $method);
         }
 
@@ -213,10 +213,8 @@ final class Server implements ServerInterface
 
     /**
      * Ends the current matching layer definition and returns its parent, if any.
-     *
-     * @return self|null
      */
-    public function end()
+    public function end(): ?self
     {
         return $this->parent;
     }

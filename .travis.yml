@@ -10,18 +10,10 @@ cache:
 jobs:
     include:
         -
-            php: 7.0
-            script:
-                - make phpunit
-                - make php-cs-fixer-dry-run
-        -
-            php: 7.1
-            script:
-                - make phpunit
-        -
             php: 7.2
             script:
                 - make phpunit
+                - make php-cs-fixer-dry-run
         -
             php: 7.3
             script:

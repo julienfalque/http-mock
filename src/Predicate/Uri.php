@@ -16,9 +16,10 @@ class Uri extends PatternPredicate
 {
     use NormalizeRequestTrait;
 
-    public function __construct($pattern, $isRegularExpression = false)
+    public function __construct(string $pattern, bool $isRegularExpression = false)
     {
         if (!$isRegularExpression) {
+            /** @var string $pattern */
             $pattern = preg_replace('~^(\\w+://[^/]+)/([?#].*)?$~', '$1$2', $pattern);
         }
 
