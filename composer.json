@@ -1,17 +1,17 @@
 {
     "name": "jfalque/http-mock",
-    "description": "Mocks HTTP calls for tests",
-    "keywords": ["HTTP", "mock", "test"],
+    "description": "Allows to create HTTP fixtures to mock tests",
+    "keywords": ["HTTP", "fixtures", "mock", "test"],
     "type": "library",
     "license": "MIT",
     "require": {
         "php": ">=7",
-        "guzzlehttp/psr7": "~1.0",
-        "psr/http-message": "~1.0"
+        "guzzlehttp/psr7": "^1.0",
+        "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "mikey179/vfsStream": "1.6.*",
-        "phpunit/phpunit": "6.0.*"
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {
