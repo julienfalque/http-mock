@@ -200,7 +200,7 @@ PHP
 
         if (false !== $expectedResult) {
             $resource = fopen(...$arguments);
-            self::assertInternalType('resource', $resource);
+            self::assertIsResource($resource);
 
             $lines = preg_split('/(?<=\\n)/', $expectedResult);
 
