@@ -4,6 +4,7 @@
     "keywords": ["HTTP", "fixtures", "mock", "test"],
     "type": "library",
     "license": "MIT",
+    "abandoned": true,
     "require": {
         "php": ">=7.2",
         "guzzlehttp/psr7": "^1.0",

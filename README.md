@@ -6,6 +6,8 @@
 
 A HTTP server mock for automated tests.
 
+**This package is archived and not maintained anymore.**
+
 Testing code that makes HTTP calls is not simple: you either need to setup an actual HTTP server that provides the exact
 responses your tests require, or create mocks with complex assertions and/or expectations.
 
